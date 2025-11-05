@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALS (근위축성 가쪽경화증) 한눈에 보기</title>
+    <!-- Google Fonts: Inter for clean, modern look --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for additional icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Soft blue-grey background */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* 상단 정렬로 변경 */
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 0; /* 상하 패딩 추가, 좌우는 없앰 */
+            position: relative;
+        }
+
+        .infographic-container {
+            width: 900px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px; /* 네비게이션 바 공간 확보 */
+        }
+
+        .infographic-container::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, #e0f2fe 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .infographic-container::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, #ffe0b2 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .section {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3.2em;
+            font-weight: 800;
+            color: #2c3e50; /* Dark blue-grey for main title */
+            text-align: center;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(90deg, #3498db, #2980b9); /* Gradient for modern touch */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-subtitle {
+            font-size: 1.3em;
+            color: #555;
+            text-align: center;
+            margin-bottom: 10px; /* 교수명과의 간격 조절 */
+            font-weight: 400;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .professor-name {
+            font-size: 1.1em;
+            color: #777;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 500;
+        }
+
+        h2 {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #34495e; /* Slightly lighter dark blue-grey */
+            margin-bottom: 30px;
+            border-bottom: 3px solid #e0e7eb; /* Subtle underline */
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h2 .emoji-large {
+            font-size: 1.2em;
+            line-height: 1;
+        }
+
+        .grid-3-col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .grid-2-col {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .card {
+            background-color: #f8fcfc; /* Very light, cool background for cards */
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid #e0e7eb;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header .emoji {
+            font-size: 1.8em;
+            line-height: 1;
+        }
+
+        .card-header h3 {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #34495e;
+            margin: 0;
+        }
+
+        .card p {
+            font-size: 1em;
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .key-points ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .key-points li {
+            font-size: 1.05em;
+            color: #4a4a4a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.6;
+        }
+
+        .key-points li:last-child {
+            margin-bottom: 0;
+        }
+
+        .key-points li .bullet-icon {
+            font-size: 1.2em;
+            margin-right: 12px;
+            color: #2ecc71; /* Green for positive points */
+            flex-shrink: 0;
+            padding-top: 2px;
+        }
+
+        .key-points li.highlight .bullet-icon {
+            color: #e74c3c; /* Red for important warnings/distinctions */
+        }
+
+        .important-note {
+            background-color: #fff3e0; /* Light orange for notes */
+            border-left: 5px solid #ff9800;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            color: #e65100;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .important-note .emoji {
+            font-size: 1.8em;
+        }
+
+        /* Navigation Bar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #2c3e50;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1em;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #3498db;
+            color: #ffffff;
+        }
+
+        /* Fixed Action Buttons (Scroll to Top, Search) */
+        .action-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 999;
+        }
+
+        .action-button {
+            background-color: #3498db;
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .action-button:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar --><nav class="navbar">
+        <ul>
+            <li><a href="#section1">정의</a></li>
+            <li><a href="#section2">원인 및 병인</a></li>
+            <li><a href="#section3">임상양상</a></li>
+            <li><a href="#section4">임상평가</a></li>
+            <li><a href="#section5">중재 (치료)</a></li>
+        </ul>
+    </nav>
+
+    <div class="infographic-container">
+        <h1>ALS (근위축성 가쪽경화증) 한눈에 보기</h1>
+        <p class="header-subtitle">운동신경세포가 점진적으로 파괴되는 희귀 난치성 질환, 루게릭병에 대해 알아봅시다.</p>
+        <p class="professor-name">안산대학교 물리치료학과 심경섭 교수</p>
+
+        <div class="section" id="section1">
+            <h2>1. 정의와 핵심 <span class="emoji-large">🧠💡</span></h2>
+            <div class="card">
+                <div class="card-header">
+                    <span class="emoji">🔍</span>
+                    <h3>ALS란?</h3>
+                </div>
+                <p><strong>위운동신경세포(UMN)</strong>와 <strong>아래운동신경세포(LMN)</strong>가 동시에 파괴되는 <strong>진행성 퇴행성 신경계 질환</strong>입니다.</p>
+                <p class="important-note">
+                    <span class="emoji">🚨</span> <strong>국시 핵심:</strong> UMN과 LMN 징후가 "함께" 나타나는 것이 가장 중요!
+                </p>
+            </div>
+            <div class="grid-2-col" style="margin-top: 30px;">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="emoji">⏳</span>
+                        <h3>예후</h3>
+                    </div>
+                    <p>대부분 호흡부전으로 증상 발현 후 3~4년 이내 사망합니다. (산발성 90%, 가족성 10%)</p>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="emoji">🛡️</span>
+                        <h3>보존되는 기능</h3>
+                    </div>
+                    <p>✅ <strong>감각신경</strong> (시각, 청각, 후각, 미각, 촉각)<br>✅ <strong>자율신경계</strong> (방광, 직장 조절)<br>✅ <strong>안구운동근육</strong> (눈 움직임)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="section2">
+            <h2>2. 원인 및 병인 <span class="emoji-large">🧬🧪</span></h2>
+            <div class="grid-2-col">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="emoji">💡</span>
+                        <h3>주요 가설 (원인)</h3>
+                    </div>
+                    <ul>
+                        <li><p><strong>글루타민산 과잉 (흥분독성)</strong>: 운동신경 파괴 (가장 유력)</p></li>
+                        <li><p><strong>유전자 변이</strong>: SOD1 효소 유전자 돌연변이 (가족성 ALS)</p></li>
+                        <li><p><strong>산화적 스트레스</strong>: 유리기 과잉 생성으로 세포 파괴</p></li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="emoji">💔</span>
+                        <h3>병리학적 특징 (손상 부위)</h3>
+                    </div>
+                    <ul>
+                        <li><p><strong>UMN 손상</strong>: 대뇌겉질 운동신경 변성, 척수 가쪽 (피질척수로) 경화</p></li>
+                        <li><p><strong>LMN 손상</strong>: 척수 앞뿔세포 파괴, 뇌줄기 운동핵 소실</p></li>
+                        <li><p><strong>주요 침범 부위</strong>: 척수 중에서도 <strong>목(Cervical)</strong>과 <strong>허리(Lumbar)</strong> 부위</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="section3">
+            <h2>3. 임상양상 (증상) <span class="emoji-large">🚶‍♀️🗣️</span></h2>
+            <div class="grid-2-col">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="emoji">💪</span>
+                        <h3>LMN 징후 (아래운동신경세포 손상)</h3>
+                    </div>
+                    <ul>
+                        <li><p>근위축, 근력 약화</p></li>
+                        <li><p>근긴장 저하</p></li>
+                        <li><p>깊은힘줄반사 감소/소실</p></li>
+                        <li><p>근경련 (Cramps)</p></li>
+                        <li><p><strong>근섬유다발수축 (Fasciculations)</strong></p></li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="emoji">⚡</span>
+                        <h3>UMN 징후 (위운동신경세포 손상)</h3>
+                    </div>
+                    <ul>
+                        <li><p>강직 (Spasticity)</p></li>
+                        <li><p>근긴장 항진 (Hypertonia)</p></li>
+                        <li><p>깊은힘줄반사 항진</p></li>
+                        <li><p>간대성 경련 (Clonus)</p></li>
+                        <li><p><strong>바빈스키 징후 (+)</strong></p></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <span class="emoji">💬</span>
+                    <h3>발병 유형 (초기 증상)</h3>
+                </div>
+                <p><strong>사지형</strong> (Limb-onset): 팔 먼쪽부 약화 (물건 놓침), 보행장애, 발끌림, 넘어짐.</p>
+                <p><strong>숨뇌형</strong> (Bulbar-onset): 조음장애 (Dysarthria), 삼킴곤란 (Dysphagia).</p>
+            </div>
+        </div>
+
+        <div class="section" id="section4">
+            <h2>4. 임상평가 <span class="emoji-large">📋🩺</span></h2>
+            <div class="key-points">
+                <ul>
+                    <li><span class="bullet-icon">✅</span> <strong>신체 검진:</strong> 근긴장도, 근력(MMT), ROM 평가.</li>
+                    <li><span class="bullet-icon">✅</span> <strong>반사 검사:</strong> DTRs 항진/감소, 바빈스키 징후 (+) 확인.</li>
+                    <li><span class="bullet-icon">✅</span> <strong>폐기능 검사 (PFT):</strong> 호흡근 약화 평가 (FVC, VC).</li>
+                    <li class="highlight"><span class="bullet-icon">🚨</span> <strong><span style="font-weight: 600;">기능평가척도:</span> ALSFRS-R</strong> (개정된 ALS 기능평가척도) - 질환 진행 추적의 표준.</li>
+                    <li class="highlight"><span class="bullet-icon">🚨</span> <strong><span style="font-weight: 600;">근전도(EMG) / 신경전도검사(NCS):</span></strong> ALS 진단의 <strong>필수 검사</strong>! LMN 손상 증거 확인 (잔떨림, 근육다발수축).</li>
+                    <li><span class="bullet-icon">🔍</span> <strong>MRI:</strong> 다른 질환 배제 (Rule-out)에 활용.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section" id="section5">
+            <h2>5. 중재 (치료) <span class="emoji-large">🤝👩‍⚕️</span></h2>
+            <div class="grid-2-col">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="emoji">🚶‍♀️</span>
+                        <h3>운동치료 (단계별)</h3>
+                    </div>
+                    <ul>
+                        <li><p><strong>1단계 (경도 약화):</strong> ROM, 뻗침운동, <strong>가벼운 저항운동</strong> (과도한 운동 금지!)</p></li>
+                        <li><p><strong>2단계 (중등도 약화):</strong> 보행 보조 (발목발보조기, 지팡이)</p></li>
+                        <li><p><strong>3단계 (심한 약화):</strong> <strong>수동관절운동(PROM)</strong>, 전동휠체어</p></li>
+                        <li><p><strong>4단계 (침상 생활):</strong> PROM, <strong>체위 변경</strong> (욕창 예방)</p></li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="emoji">🌬️</span> <!-- 이모지 수정 --><h3>호흡 & 영양 & 약물</h3>
+                    </div>
+                    <ul>
+                        <li><p><strong>호흡:</strong> <strong>비침습적 양압환기 (NIV)</strong>, 고빈도흉벽진동요법 (HFCWO 또는 VEST)</p></li>
+                        <li><p><strong>영양:</strong> 삼킴곤란 시 <strong>피부경유내시경위창냄술 (PEG)</strong></p></li>
+                        <li><p><strong>약물:</strong> <strong>릴루졸 (Riluzole)</strong> - 병의 진행 지연, 바클로펜 (Baclofen) - 강직 완화</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fixed Action Buttons --><div class="action-buttons">
+        <button class="action-button" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <button class="action-button" onclick="alert('검색 기능은 준비 중입니다.');"> <!-- 실제 검색 기능은 JS 필요 --><i class="fas fa-search"></i>
+        </button>
+    </div>
+
+    <script>
+        // 네비게이션 바 스크롤 시 활성화 효과 (선택 사항)
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.navbar a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100; // 네비바 높이 고려
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.href.includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
