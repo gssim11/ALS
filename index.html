@@ -17,12 +17,15 @@
             align-items: flex-start; /* 상단 정렬로 변경 */
             min-height: 100vh;
             margin: 0;
-            padding: 40px 0; /* 상하 패딩 추가, 좌우는 없앰 */
+            padding: 40px 10px; /* 상하 패딩, 좌우 여백 추가 */
             position: relative;
         }
 
         .infographic-container {
-            width: 900px;
+            width: 95%; /* Make container responsive */
+            max-width: 900px; /* Keep max width for PC */
+            margin-left: auto;
+            margin-right: auto;
             background-color: #ffffff;
             border-radius: 20px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
@@ -59,6 +62,15 @@
             z-index: 0;
         }
 
+        /* NEW: Header grouping for better layout control */
+        .main-header {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Gap between title and subtitles */
+            margin-bottom: 30px; /* Space before first section */
+        }
+
         .section {
             position: relative;
             z-index: 1;
@@ -69,7 +81,7 @@
             font-weight: 800;
             color: #2c3e50; /* Dark blue-grey for main title */
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 0; /* Adjusted by .main-header */
             line-height: 1.2;
             background: linear-gradient(90deg, #3498db, #2980b9); /* Gradient for modern touch */
             -webkit-background-clip: text;
@@ -80,9 +92,9 @@
             font-size: 1.3em;
             color: #555;
             text-align: center;
-            margin-bottom: 10px; /* 교수명과의 간격 조절 */
+            margin-bottom: 0; /* Adjusted by .main-header */
             font-weight: 400;
-            max-width: 700px;
+            max-width: 90%; /* Use percentage for better wrapping */
             margin-left: auto;
             margin-right: auto;
         }
@@ -91,7 +103,7 @@
             font-size: 1.1em;
             color: #777;
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 0; /* Adjusted by .main-header */
             font-weight: 500;
         }
 
@@ -227,6 +239,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            transition: transform 0.3s ease; /* 부드러운 효과를 위한 transition 추가 */
+        }
+
+        /* NEW: Class to hide navbar */
+        .navbar.navbar-hidden {
+            transform: translateY(-100%);
         }
 
         .navbar ul {
@@ -283,6 +301,76 @@
             background-color: #2980b9;
             transform: translateY(-3px);
         }
+
+            /* NEW: Media Queries for Mobile Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 0;
+            }
+
+            .infographic-container {
+                width: 95%;
+                padding: 25px;
+                margin-top: 70px; /* Adjust for navbar */
+            }
+
+            h1 {
+                font-size: 2.2em; /* Smaller title on mobile */
+            }
+
+            .header-subtitle {
+                font-size: 1.1em; /* Smaller subtitle */
+                max-width: 100%; /* Allow full width on mobile */
+            }
+
+            .professor-name {
+                font-size: 1em;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            .grid-2-col, .grid-3-col {
+                grid-template-columns: 1fr; /* Stack columns on mobile */
+            }
+
+            .navbar ul {
+                gap: 10px;
+                flex-wrap: wrap; /* Allow navbar items to wrap */
+                justify-content: center;
+                padding: 0 10px;
+            }
+
+            .navbar a {
+                font-size: 0.9em;
+            }
+
+            .action-buttons {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .action-button {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .infographic-container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .header-subtitle {
+                font-size: 1em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -297,9 +385,12 @@
     </nav>
 
     <div class="infographic-container">
-        <h1>ALS (근위축성 가쪽경화증) 한눈에 보기</h1>
-        <p class="header-subtitle">운동신경세포가 점진적으로 파괴되는 희귀 난치성 질환, 루게릭병에 대해 알아봅시다.</p>
-        <p class="professor-name">안산대학교 물리치료학과 심경섭 교수</p>
+        <!-- NEW: Grouped header elements -->
+        <header class="main-header">
+            <h1>ALS (근위축성 가쪽경화증) 한눈에 보기</h1>
+            <p class="header-subtitle">운동신경세포가 점진적으로 파괴되는 희귀 난치성 질환, 루게릭병에 대해 알아봅시다.</p>
+            <p class="professor-name">안산대학교 물리치료학과 심경섭 교수</p>
+        </header>
 
         <div class="section" id="section1">
             <h2>1. 정의와 핵심 <span class="emoji-large">🧠💡</span></h2>
@@ -454,6 +545,8 @@
         // 네비게이션 바 스크롤 시 활성화 효과 (선택 사항)
         const sections = document.querySelectorAll('.section');
         const navLinks = document.querySelectorAll('.navbar a');
+        const navbar = document.querySelector('.navbar'); // Get navbar element
+        // let lastScrollTop = 0; // Store last scroll position - 새 로직에서는 필요 없음
 
         window.addEventListener('scroll', () => {
             let current = '';
@@ -471,6 +564,25 @@
                     link.classList.add('active');
                 }
             });
+
+            // --- MODIFIED: Navbar hide on scroll logic ---
+            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (window.innerWidth <= 768) { // Mobile breakpoint
+                // Hide if scrolled away from the very top
+                if (currentScrollTop > 0) { 
+                    navbar.classList.add('navbar-hidden');
+                } else {
+                    // Show only at the very top
+                    navbar.classList.remove('navbar-hidden');
+                }
+            } else {
+                // Always show on desktop
+                navbar.classList.remove('navbar-hidden');
+            }
+            
+            // lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // 새 로직에서는 필요 없음
+            // --- End of modified logic ---
         });
     </script>
 </body>
